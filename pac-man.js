@@ -91,7 +91,6 @@ class Game {
                         break;
                     }
                     else if(command === "down"){
-                        // this.stage[i][j] = 0;
                         this.stage[i+1][j] = 2;
                         console.log(i+1, j);
                         break;
