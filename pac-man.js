@@ -43,10 +43,12 @@ class Game {
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
         ];
 
     }
 
+    // ステージを描画する関数
     draw() {
 
         /* 枠線の色と太さ */
@@ -54,15 +56,15 @@ class Game {
         strokeWeight(1);
 
         /* ステージの描画 */
-        for(let i=0; i<32; i++) {
-            for(let j=0; j<32; j++) {
-                if(this.stage[i][j] == 1) {  // 配列の中身が1の時
+        for(let i=0; i<this.stage.length; i++) {
+            for(let j=0; j<this.stage[0].length; j++) {
+                if(this.stage[i][j] === 1) {  // 配列の中身が1の時
                     fill(51, 51, 153);
                 }
-                else if(this.stage[i][j] == 0){
+                else if(this.stage[i][j] === 0){
                     fill(0, 0, 0);
                 }
-                else if(this.stage[i][j] == 2){
+                else if(this.stage[i][j] === 2){
                     fill(255, 255, 0);
                 }
 
@@ -71,35 +73,30 @@ class Game {
         }
     }
 
+    // パックマンを移動させる関数
     movePac_man(command) {
-        for(let i=0; i<32; i++) {
-            for(let j=0; j<32; j++) {
+        for(let i=0; i<this.stage.length; i++) {
+            for(let j=0; j<this.stage[0].length; j++) {
                 if(this.stage[i][j] === 2){
-                    if(command === "left"){
-                        this.stage[i][j] = 0;
+
+                    if(command === "left" && this.stage[i][j-1] === 0) {
+                        this.stage[i][j] = 0;  
                         this.stage[i][j-1] = 2;
-                        break;
-                    }
-                    else if(command === "right"){
+                    } else if(command === "right" && this.stage[i][j+1] === 0) {
                         this.stage[i][j] = 0;
                         this.stage[i][j+1] = 2;
-                        break;
-                    }
-                    else if(command === "up"){
+                    } else if(command === "up" && this.stage[i-1][j] === 0) {
                         this.stage[i][j] = 0;
                         this.stage[i-1][j] = 2;
-                        break;
-                    }
-                    else if(command === "down"){
+                    } else if(command === "down" && this.stage[i+1][j] === 0) {
+                        this.stage[i][j] = 0;
                         this.stage[i+1][j] = 2;
-                        console.log(i+1, j);
-                        break;
                     }
-
+                    
+                    return;
                 }
             }
-        }
-        redrawAll();
+        } 
     }
 }
 
@@ -122,5 +119,6 @@ window.addEventListener('DOMContentLoaded', function(){
       else if(e.key === "d") game.movePac_man("right");
       else if(e.key === "w") game.movePac_man("up");
       else if(e.key === "s") game.movePac_man("down");
+      redrawAll();
     }); 
 });
