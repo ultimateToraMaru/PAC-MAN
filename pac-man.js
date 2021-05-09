@@ -1,11 +1,7 @@
 /* https://p5js.jp/get-started/ */
 
 /* ブロックの大きさ */
-let h = 15, w = 15;
-
-/* パックマンの初期位置 */
-let pX = 15;
-let pY = 15;
+let h = 10, w = 10;
 
 class Game {
 
@@ -42,7 +38,7 @@ class Game {
             [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,],
             [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,],
             [1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,],
-            [1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+            [1,5,0,5,0,5,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,],
         ];
 
@@ -99,7 +95,7 @@ class Game {
     setChara(pos) {
         this.turn_stage = this.start_stage.slice(0, this.start_stage.length);
         this.turn_stage[pos[0]][pos[1]] = pos[2];
-        console.log(this.start_stage);
+        // console.log(this.start_stage);
     }
 
     // ステージを描画する関数
@@ -127,6 +123,9 @@ class Game {
                 }
                 else if(this.turn_stage[i][j] === 4){
                     fill(0, 255, 0);
+                }
+                else if(this.turn_stage[i][j] === 5){
+                    fill(0, 255, 255);
                 }
 
                 rect(h*(j+1), w*(i+1), h, w)    // ブロックの描画
@@ -165,22 +164,22 @@ class PacMan {
         for(let i=0; i<this.stage.length; i++) {
             for(let j=0; j<this.stage[0].length; j++) {
                 if(this.stage[i][j] === 2){
-                    if(command === 'left' && this.stage[i][j-1] === 0) {
+                    if(command === 'left' && this.stage[i][j-1] !== 1) {
                         this.stage[i][j] = 0;  
                         this.stage[i][j-1] = 2;
                         this.p_i = i;
                         this.p_j = j-1;
-                    } else if(command === 'right' && this.stage[i][j+1] === 0) {
+                    } else if(command === 'right' && this.stage[i][j+1] !== 1) {
                         this.stage[i][j] = 0;
                         this.stage[i][j+1] = 2;
                         this.p_i = i;
                         this.p_j = j+1;
-                    } else if(command === 'up' && this.stage[i-1][j] === 0) {
+                    } else if(command === 'up' && this.stage[i-1][j] !== 1) {
                         this.stage[i][j] = 0;
                         this.stage[i-1][j] = 2;
                         this.p_i = i-1;
                         this.p_j = j;
-                    } else if(command === 'down' && (this.stage[i+1][j] === 0 || this.stage[i+1][j] === 4)) {
+                    } else if(command === 'down' && this.stage[i+1][j] !== 1) {
                         this.stage[i][j] = 0;
                         this.stage[i+1][j] = 2;
                         this.p_i = i+1;
@@ -267,7 +266,7 @@ function setup() {
 
 function redrawAll() {
     p.setStage(game.getStage());
-    game.setChara(p.move('default'));
+    // game.setChara(p.move('default'));
 
     e.setStage(game.getStage());
     game.setChara(e.move());
@@ -280,7 +279,7 @@ function redrawAll() {
 
 window.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('keypress', function(e){
-      console.log('Key press:' + e.key);
+    //   console.log('Key press:' + e.key);
 
       if(e.key === 'a') game.setChara(p.move('left'));
       else if(e.key === 'd') game.setChara(p.move('right'));
