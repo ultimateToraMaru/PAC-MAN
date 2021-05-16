@@ -15,7 +15,7 @@ function setup() {
 
 async function redrawAll() {
     while(game.gameTurn()) {
-        await sleep(2000);
+        await sleep(1000);
         p.setStage(game.getStage());
         // game.setChara(p.move('default'));
     
@@ -31,13 +31,11 @@ async function redrawAll() {
 
 window.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('keypress', function(e){
-    //   console.log('Key press:' + e.key);
 
       if(e.key === 'a') game.setChara(p.move('left'));
       else if(e.key === 'd') game.setChara(p.move('right'));
       else if(e.key === 'w') game.setChara(p.move('up'));
       else if(e.key === 's') game.setChara(p.move('down'));
 
-      redrawAll();
     }); 
 });
