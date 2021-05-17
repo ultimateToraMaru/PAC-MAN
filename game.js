@@ -95,7 +95,6 @@ class Game {
     setChara(pos) {
         this.turn_stage = this.start_stage.slice(0, this.start_stage.length);
         this.turn_stage[pos[0]][pos[1]] = pos[2];
-        // console.log(this.start_stage);
     }
 
     // ステージを描画する関数
@@ -115,7 +114,10 @@ class Game {
                     fill(51, 51, 153);
                 }
                 else if(this.turn_stage[i][j] === 2){
-                    fill(255, 255, 0);
+                    imageMode(CENTER);
+                    scale(0.02, 0.02);
+                    image(pacManImg, 500*(j+1), 500*(i+1));
+                    // fill(255, 255, 0);
                     this.turn++;
                 }
                 else if(this.turn_stage[i][j] === 3){
@@ -136,7 +138,7 @@ class Game {
     // ゲームターンを出力する関数
     gameTurn() {
         console.log(this.turn);
-        if(this.tmp_turn == this.turn) {
+        if(this.turn !== 0 && this.tmp_turn == this.turn) {
             this.isGameOver = 1;
             console.log('GameOber!');
         }

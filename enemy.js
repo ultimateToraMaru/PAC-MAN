@@ -26,7 +26,7 @@ class Enemy {
                 if(this.stage[i][j] === this.c){
 
                     if (this.command === 'left') {
-                        if (this.stage[i][j-1] === 1) {
+                        if (this.stage[i][j-1] === 1 || this.stage[i][j-1] >= 3) {
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;  
@@ -35,7 +35,7 @@ class Enemy {
                             this.e_j = j-1;
                         }
                     } else if (this.command === 'right') {
-                        if (this.stage[i][j+1] === 1) {
+                        if (this.stage[i][j+1] === 1 || this.stage[i][j+1] >= 3) {
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;
@@ -44,7 +44,7 @@ class Enemy {
                             this.e_j = j+1;
                         }
                     } else if (this.command === 'up') {
-                        if (this.stage[i-1][j] === 1) {
+                        if (this.stage[i-1][j] === 1 || this.stage[i-1][j] >= 3) {
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;
@@ -53,7 +53,7 @@ class Enemy {
                             this.e_j = j;
                         }
                     } else if (this.command === 'down') {
-                        if (this.stage[i+1][j] === 1) {
+                        if (this.stage[i+1][j] === 1 || this.stage[i+1][j] >= 3) {
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;

@@ -8,14 +8,20 @@ let p = new PacMan();
 let e = new Enemy(1, 10, 3);
 let e2 = new Enemy(1, 20, 4);
 
+let pacManImg;
+
+function preload() {
+    pacManImg = loadImage('./imgs/Pac-Man-0.png');
+}
+
 function setup() {
     createCanvas(960, 960);
     redrawAll();
 }
 
 async function redrawAll() {
-    while(game.gameTurn()) {
-        await sleep(1000);
+    while(!game.gameTurn()) {
+        await sleep(500);
         p.setStage(game.getStage());
         game.setChara(p.move());
     
