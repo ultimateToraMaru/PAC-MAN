@@ -17,6 +17,7 @@ function preload() {
 function setup() {
     createCanvas(960, 960);
     redrawAll();
+    e.setS
 }
 
 async function redrawAll() {
@@ -25,10 +26,10 @@ async function redrawAll() {
         p.setStage(game.getStage());
         game.setChara(p.move());
     
-        e.setStage(game.getStage());
+        e.setStage(game.getStage(), game.getStagePoint());
         game.setChara(e.move());
     
-        e2.setStage(game.getStage());
+        e2.setStage(game.getStage(), game.getStagePoint());
         game.setChara(e2.move());
     
         game.draw();
