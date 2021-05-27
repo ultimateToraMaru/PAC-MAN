@@ -1,12 +1,7 @@
-// import { Game } from './game.js';
-// import { PacMan } from './player.js';
-// import { Enemy } from './enemy.js';
-// import { sleep } from './delay.js';
-
-let game = new Game();
+let stage = new Stage(startStage, commandPoints);
 let p = new PacMan();
-let e = new Enemy(1, 10, 3);
-let e2 = new Enemy(1, 20, 4);
+let e = new Enemy(1, 10, 4);
+let e2 = new Enemy(1, 20, 5);
 
 let pacManImg;
 
@@ -17,22 +12,21 @@ function preload() {
 function setup() {
     createCanvas(960, 960);
     redrawAll();
-    e.setS
 }
 
 async function redrawAll() {
-    while(!game.gameTurn()) {
+    while(!stage.gameTurn()) {
         await sleep(500);
-        p.setStage(game.getStage());
-        game.setChara(p.move());
+        p.setStage(stage.getStage());
+        stage.setChara(p.move());
     
-        e.setStage(game.getStage(), game.getStagePoint());
-        game.setChara(e.move());
+        e.setStage(stage.getStage(), stage.getStagePoint());
+        stage.setChara(e.move());
     
-        e2.setStage(game.getStage(), game.getStagePoint());
-        game.setChara(e2.move());
+        e2.setStage(stage.getStage(), stage.getStagePoint());
+        stage.setChara(e2.move());
     
-        game.draw();
+        stage.draw();
     }
 }
 
