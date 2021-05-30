@@ -16,20 +16,22 @@ function setup() {
 
 async function redrawAll() {
     while(!stage.gameTurn()) {
-        await sleep(500);
+        await sleep(250);
         p.setStage(stage.getStage());
         stage.setChara(p.move());
     
-        e.setStage(stage.getStage(), stage.getStagePoint());
+        e.setStage(stage.getStage(), stage.getCommandPoints());
         stage.setChara(e.move());
     
-        e2.setStage(stage.getStage(), stage.getStagePoint());
+        e2.setStage(stage.getStage(), stage.getCommandPoints());
         stage.setChara(e2.move());
     
         stage.draw();
     }
 }
 
+
+// ユーザからの入力(a, d, w, s)を受け付ける
 window.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('keypress', function(e){
 
