@@ -1,4 +1,4 @@
-let stage = new Stage(startStage, commandPoints);
+let stage = new Stage(startStage, stagePoints, stageBites);
 let p = new PacMan();
 let e = new Enemy(1, 10, 4);
 let e2 = new Enemy(1, 20, 5);
@@ -17,13 +17,13 @@ function setup() {
 async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
-        p.setStage(stage.getStage(), stage.getCommandPoints());
+        p.setStage(stage.getStage(), stage.getStageBites());
         stage.setChara(p.move());
     
-        e.setStage(stage.getStage(), stage.getCommandPoints());
+        e.setStage(stage.getStage(), stage.getStagePoints());
         stage.setChara(e.move());
     
-        e2.setStage(stage.getStage(), stage.getCommandPoints());
+        e2.setStage(stage.getStage(), stage.getStagePoints());
         stage.setChara(e2.move());
     
         stage.draw();

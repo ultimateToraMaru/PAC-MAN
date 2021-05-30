@@ -3,7 +3,7 @@ class Enemy {
     // 引数: i, j ... エネミーの初期座標  c ... 自分自身を表す文字(4以上の数字)
     constructor(i, j, c) {
         this.stage = [0];
-        this.commandPoints = [0];
+        this.stagePoints = [0];
 
         // エネミーの初期座標、現在どの座標にいるのかを記憶するためにも使用する
         this.e_i = i;
@@ -15,13 +15,13 @@ class Enemy {
     }
     
     // 配列this.stageにコンストラクタの引数に与えられた座標(i, j)とエネミー文字(c)を代入する
-    // 配列this.commandPointsにコマンドポイントを代入する
-    setStage(stage, commandPoints) {
+    // 配列this.stagePointsにコマンドポイントを代入する
+    setStage(stage, stagePoints) {
         let tmp = stage;
         tmp[this.e_i][this.e_j] = this.c;
         this.stage = tmp;
 
-        this.commandPoints = commandPoints;
+        this.stagePoints = stagePoints;
     }
 
     getStage() {
@@ -36,7 +36,7 @@ class Enemy {
             for(let j=0; j<this.stage[0].length; j++) {
 
                 if(this.stage[i][j] === this.c){
-                    if (this.commandPoints[i][j] === 'p') {
+                    if (this.stagePoints[i][j] === 9) {
                         this.setCommand();
                     }
 
