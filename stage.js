@@ -1,9 +1,10 @@
 /* https://p5js.jp/get-started/ */
 
 class Stage {
-    constructor(startStage, commandPoints) {
+    constructor(startStage, stagePoints, stageBites) {
         this.startStage = startStage;
-        this.commandPoints = commandPoints;
+        this.stagePoints = stagePoints;
+        this.stageBites = stageBites;
     
         /* パックマン生存フラグ */
         this.turn = 0;
@@ -13,17 +14,11 @@ class Stage {
     }
 
 
-    setStage(stage) {
-        this.startStage = stage;
-    }
+    setStage(stage) { this.startStage = stage; }
+    getStage() { return this.startStage; }
 
-    getStage() {
-        return this.startStage;
-    }
-
-    getCommandPoints() {
-        return this.commandPoints;
-    }
+    getStagePoints() { return this.stagePoints; }
+    getStageBites() { return this.stageBites; }
 
     setChara(pos) {
         this.startStage[pos[0]][pos[1]] = pos[2];
@@ -73,7 +68,7 @@ class Stage {
                 rect(h*(j+1), w*(i+1), h, w)    // ブロックの描画
 
                 // 配列の中身が3の時、バイトブロック
-                if(this.commandPoints[i][j] === 3){
+                if(this.stageBites[i][j] === 3){
                     fill(255, 255, 0);
                     baitFlag=1;
                     rect(h*(j+1)+h/4, w*(i+1)+w/4, h/2, w/2)    // ブロックの描画

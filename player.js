@@ -6,6 +6,7 @@ class PacMan {
         // パックマンの初期位置、現在どの座標にいるのかを記憶するためにも使用する
         this.p_i = 1;
         this.p_j = 1;
+
         this.command = '';
         this.setCommand();
     }
@@ -16,10 +17,6 @@ class PacMan {
         this.stage = tmp;
 
         this.stageBites = stageBites;
-    }
-
-    getStage() {
-        return this.stage;
     }
 
     // プレイヤー文字を動かすメソッド。
@@ -56,6 +53,7 @@ class PacMan {
                     // エサをゲットする
                     if (this.stageBites[this.p_i][this.p_j] === 3) {
                         this.stageBites[this.p_i][this.p_j] = 0;
+                        sound.play();
                     }
 
                     return [this.p_i, this.p_j, 2];

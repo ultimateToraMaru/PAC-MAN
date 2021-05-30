@@ -24,10 +24,6 @@ class Enemy {
         this.stagePoints = stagePoints;
     }
 
-    getStage() {
-        return this.stage;
-    }
-
     // エネミー文字を動かすメソッド。
     // 行き止まりになった時とコマンドポイントに着いた時に、setCommand()を呼び出す
     move() {

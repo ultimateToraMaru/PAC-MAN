@@ -1,12 +1,14 @@
 let stage = new Stage(startStage, stagePoints, stageBites);
 let p = new PacMan();
-let e = new Enemy(1, 10, 4);
-let e2 = new Enemy(1, 20, 5);
+let e1 = new Enemy(i = 1, j = 10, c = 4);
+let e2 = new Enemy(i = 1, j = 20, c = 5);
 
 let pacManImg;
+let sound;
 
 function preload() {
     pacManImg = loadImage('./imgs/Pac-Man-0.png');
+    sound = loadSound('./imgs/botan_b44.mp3');
 }
 
 function setup() {
@@ -20,8 +22,8 @@ async function redrawAll() {
         p.setStage(stage.getStage(), stage.getStageBites());
         stage.setChara(p.move());
     
-        e.setStage(stage.getStage(), stage.getStagePoints());
-        stage.setChara(e.move());
+        e1.setStage(stage.getStage(), stage.getStagePoints());
+        stage.setChara(e1.move());
     
         e2.setStage(stage.getStage(), stage.getStagePoints());
         stage.setChara(e2.move());
