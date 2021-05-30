@@ -1,6 +1,8 @@
 class PacMan {
     constructor() {
         this.stage = [0];
+        this.commandPoints = [0];
+
         // パックマンの初期位置、現在どの座標にいるのかを記憶するためにも使用する
         this.p_i = 1;
         this.p_j = 1;
@@ -8,10 +10,12 @@ class PacMan {
         this.setCommand();
     }
 
-    setStage(stage) { 
+    setStage(stage, commandPoints) { 
         let tmp = stage;
         tmp[this.p_i][this.p_j] = 2;
         this.stage = tmp;
+
+        this.commandPoints = commandPoints;
     }
 
     getStage() {
@@ -47,6 +51,11 @@ class PacMan {
                         this.p_j = j;
                     } else {
                         this.stage[this.p_i][this.p_j] = 2;
+                    }
+
+                    // エサをゲットする
+                    if (this.commandPoints[this.p_i][this.p_j] === 3) {
+                        this.commandPoints[this.p_i][this.p_j] = 0;
                     }
 
                     return [this.p_i, this.p_j, 2];

@@ -38,12 +38,11 @@ class Enemy {
                 if(this.stage[i][j] === this.c){
                     if (this.commandPoints[i][j] === 'p') {
                         this.setCommand();
-                        // console.log('point!');
                     }
 
                     if (this.command === 'left') {
+                        // 行き止まりの時
                         if (this.stage[i][j-1] === 1 || this.stage[i][j-1] >= 3) {
-                            console.log('left');
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;  
@@ -53,7 +52,6 @@ class Enemy {
                         }
                     } else if (this.command === 'right') {
                         if (this.stage[i][j+1] === 1 || this.stage[i][j+1] >= 3) {
-                            console.log('right');
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;
@@ -63,7 +61,6 @@ class Enemy {
                         }
                     } else if (this.command === 'up') {
                         if (this.stage[i-1][j] === 1 || this.stage[i-1][j] >= 3) {
-                            console.log('up');
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;
@@ -73,7 +70,6 @@ class Enemy {
                         }
                     } else if (this.command === 'down') {
                         if (this.stage[i+1][j] === 1 || this.stage[i+1][j] >= 3) {
-                            console.log('down');
                             this.setCommand();
                         } else {
                             this.stage[i][j] = 0;

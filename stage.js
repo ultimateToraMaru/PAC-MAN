@@ -10,10 +10,6 @@ class Stage {
         this.tmpTurn = 0;
 
         this.isGameSet = 0;
-        this.isGameClear = 0;
-        
-        /* ステージ上にエサがあるかどうかのフラグ */
-        this. baitFlag = 0;
     }
 
 
@@ -25,7 +21,7 @@ class Stage {
         return this.startStage;
     }
 
-    getStagePoint() {
+    getCommandPoints() {
         return this.commandPoints;
     }
 
@@ -36,6 +32,9 @@ class Stage {
     // ステージを描画する関数
     draw() {
 
+        /* ステージ上にエサがあるかどうかのフラグ */
+        let baitFlag = 0;
+
         /* 枠線の色と太さ */
         stroke(0, 0, 0);
         strokeWeight(1);
@@ -43,39 +42,49 @@ class Stage {
         /* ステージの描画 */
         for(let i=0; i<this.startStage.length; i++) {
             for(let j=0; j<this.startStage[0].length; j++) {
+                // console.log(i, j);
                 if(this.startStage[i][j] === 0){
                     fill(0, 0, 0);
                 }
-                else if(this.startStage[i][j] === 1) { // 配列の中身が1の時、青ブロックを描画
+                // 配列の中身が1の時、青ブロック
+                else if(this.startStage[i][j] === 1) { 
                     fill(51, 51, 153);
                 }
-                else if(this.startStage[i][j] === 2){  // 配列の中身が2の時、プレイヤーを描画
+                // 配列の中身が2の時、プレイヤーブロック
+                else if(this.startStage[i][j] === 2){ 
+
+                    /* 画像パックマン表示の部分 現在保留中 */
                     // imageMode(CENTER);
                     // scale(0.02, 0.02);
-                    // image(pacManImg, 500*(j+1), 500*(i+1));
+                    // image(pacManImg, 1000*(j+1), 600*(i+1));
+
                     fill(255, 255, 0);
                     this.turn++;
                 }
-                else if(this.startStage[i][j] === 3){  // 配列の中身が3の時、エサを描画
-                    fill(0, 255, 255);
-                    this.baitFlag=1;
-                }
-                else if(this.startStage[i][j] === 4){  // 配列の中身が4の時、エネミーを描画
+                // 配列の中身が4の時、エネミーブロック
+                else if(this.startStage[i][j] === 4){
                     fill(0, 255, 0);
                 }
-                else if(this.startStage[i][j] === 5){  // 配列の中身が5の時、エネミーを描画
+                // 配列の中身が5の時、エネミーブロック
+                else if(this.startStage[i][j] === 5){
                     fill(255, 0, 0);
                 }
-
+                
                 rect(h*(j+1), w*(i+1), h, w)    // ブロックの描画
+
+                // 配列の中身が3の時、バイトブロック
+                if(this.commandPoints[i][j] === 3){
+                    fill(255, 255, 0);
+                    baitFlag=1;
+                    rect(h*(j+1)+h/4, w*(i+1)+w/4, h/2, w/2)    // ブロックの描画
+                }
             }
         }
 
-        /* バイトフラグが立たないとき、ゲームクリア */
-        if (this.baitFlag === 1) {
-            this.baitFlag = 0;
-        } else if (this.baitFlag === 0) {
-            this.isGameClear = 1;
+        /* バイトフラグが立たないとき(ステージ上のエサをすべて食べた時)、ゲームクリア */
+        if (baitFlag === 0) {
+            this.isGameSet = 1;
+            console.log('gameClear!');
         }
     }
 
@@ -83,13 +92,10 @@ class Stage {
     gameTurn() {
         console.log(this.turn);
 
-        if(this.turn !== 0 && this.tmpTurn == this.turn) { // ゲームオーバーの条件(同じターンが続いた時)
+        // ゲームオーバーの条件(同じターンが続いた時)
+        if(this.turn !== 0 && this.tmpTurn == this.turn) {
             this.isGameSet = 1;
             console.log('GameOber!');
-
-        } else if (this.isGameClear === 1) { // ゲームクリアの条件
-            this.isGameSet = 1;
-            console.log('GameClear!');
         }
         this.tmpTurn = this.turn;
 

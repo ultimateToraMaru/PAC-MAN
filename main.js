@@ -17,7 +17,7 @@ function setup() {
 async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
-        p.setStage(stage.getStage());
+        p.setStage(stage.getStage(), stage.getCommandPoints());
         stage.setChara(p.move());
     
         e.setStage(stage.getStage(), stage.getCommandPoints());
