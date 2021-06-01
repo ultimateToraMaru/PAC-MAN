@@ -72,6 +72,10 @@ class Stage {
                     fill(255, 255, 0);
                     baitFlag=1;
                     rect(h*(j+1)+h/4, w*(i+1)+w/4, h/2, w/2)    // ブロックの描画
+                }else if(this.stageBites[i][j] === 6){
+                    fill(255, 255, 0);
+                    baitFlag=1;
+                    rect(h*(j+1)+h/8, w*(i+1)+w/8, h*3/5, w*3/5)    // ブロックの描画
                 }
             }
         }

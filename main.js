@@ -1,7 +1,7 @@
 let stage = new Stage(startStage, stagePoints, stageBites);
 let p = new PacMan();
-let e1 = new Enemy(i = 1, j = 10, c = 4);
-let e2 = new Enemy(i = 1, j = 20, c = 5);
+let e1 = new Enemy(i = 1, j = 10, c = 4, target = p);
+let e2 = new Enemy(i = 1, j = 20, c = 5, target = p);
 
 let pacManImg;
 let sound;
@@ -19,15 +19,19 @@ function setup() {
 async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
+
+        
+        // インスタンスを削除すればできそう
+        e1.setStage(stage.getStage(), stage.getStagePoints());
+        e1.readFacePanMan(p);
+        stage.setChara(e1.move());
+        
+        e2.setStage(stage.getStage(), stage.getStagePoints());
+        e2.readFacePanMan(p);
+        stage.setChara(e2.move());
+        
         p.setStage(stage.getStage(), stage.getStageBites());
         stage.setChara(p.move());
-    
-        e1.setStage(stage.getStage(), stage.getStagePoints());
-        stage.setChara(e1.move());
-    
-        e2.setStage(stage.getStage(), stage.getStagePoints());
-        stage.setChara(e2.move());
-    
         stage.draw();
     }
 }
