@@ -21,6 +21,8 @@ class Stage {
     getStagePoints() { return this.stagePoints; }
     getStageBites() { return this.stageBites; }
 
+    getTurn() { this.turn; }
+
     setChara(pos) {     // pos[0], pos[1]: char文字の座標(i, j), pos[2]: char文字
         this.startStage[pos[0]][pos[1]] = pos[2];
     }

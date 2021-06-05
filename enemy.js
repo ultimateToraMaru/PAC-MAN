@@ -9,7 +9,9 @@ class Enemy {
         this.e_i = i;
         this.e_j = j;
         this.char = c;
-        this.color = color;
+
+        this.baseColor = color;
+        this.statusColor = color;
 
         this.isSulk = 0;
         this.isAlive = 1;
@@ -29,7 +31,7 @@ class Enemy {
     }
 
     getColor() {
-        return this.color;
+        return this.statusColor;
     }
 
     getChar() {
@@ -107,6 +109,9 @@ class Enemy {
     readFacePanMan(pacman) {
         if (pacman.isPowerPacMan()) {
             this.isSulk = true;
+            this.statusColor = 'PURPLE';
+        } else {
+            this.statusColor = this.baseColor;
         }
     }
 
