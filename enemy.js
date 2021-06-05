@@ -9,9 +9,10 @@ class Enemy {
         this.e_i = i;
         this.e_j = j;
         this.c = c;
-        this.targer = target;
+        this.target = target;
 
         this.isSulk = 0;
+        this.isAlive = 1;
 
         this.command = '';
         this.setCommand();
@@ -23,79 +24,97 @@ class Enemy {
         let tmp = stage;
         tmp[this.e_i][this.e_j] = this.c;
         this.stage = tmp;
-
+        
         this.stagePoints = stagePoints;
     }
-
+    
     // エネミー文字を動かすメソッド。
     // 行き止まりになった時とコマンドポイントに着いた時に、setCommand()を呼び出す
     move() {
-        let thres = 3;
-        if (this.isSulk) {
-            thres = 2;
-            console.log('isSulk');
-        }
-        // stage配列を探索して、エネミー文字を探す
-        for(let i=0; i<this.stage.length; i++) {
-            for(let j=0; j<this.stage[0].length; j++) {
-
-                if(this.stage[i][j] === this.c){
-                    if (this.stagePoints[i][j] === 9) {
-                        this.setCommand();
+        
+        if (this.isAlive === 1) {
+            // stage配列を探索して、エネミー文字を探す
+            for(let i=0; i<this.stage.length; i++) {
+                for(let j=0; j<this.stage[0].length; j++) {
+                    
+                    if(this.stage[i][j] === this.c){
+                        if (this.stagePoints[i][j] === 9) {
+                            this.setCommand();
+                        }
+                        
+                        if (this.command === 'left') {
+                            // 行き止まりの時
+                            if (this.stage[i][j-1] === 1 || this.stage[i][j-1] >= 3) {
+                                this.setCommand();
+                            } else {
+                                this.stage[i][j] = 0;  
+                                this.stage[i][j-1] = this.c;
+                                this.e_i = i;
+                                this.e_j = j-1;
+                            }
+                        } else if (this.command === 'right') {
+                            if (this.stage[i][j+1] === 1 || this.stage[i][j+1] >= 3) {
+                                this.setCommand();
+                            } else {
+                                this.stage[i][j] = 0;
+                                this.stage[i][j+1] = this.c;
+                                this.e_i = i;
+                                this.e_j = j+1;
+                            }
+                        } else if (this.command === 'up') {
+                            if (this.stage[i-1][j] === 1 || this.stage[i-1][j] >= 3) {
+                                this.setCommand();
+                            } else {
+                                this.stage[i][j] = 0;
+                                this.stage[i-1][j] = this.c;
+                                this.e_i = i-1;
+                                this.e_j = j;
+                            }
+                        } else if (this.command === 'down') {
+                            if (this.stage[i+1][j] === 1 || this.stage[i+1][j] >= 3) {
+                                this.setCommand();
+                            } else {
+                                this.stage[i][j] = 0;
+                                this.stage[i+1][j] = this.c;
+                                this.e_i = i+1;
+                                this.e_j = j;
+                            }
+                        }
+                        return [this.e_i, this.e_j, this.c];
                     }
-
-                    if (this.command === 'left') {
-                        // 行き止まりの時
-                        if (this.stage[i][j-1] === 1 || this.stage[i][j-1] >= 3) {
-                            this.setCommand();
-                        } else {
-                            this.stage[i][j] = 0;  
-                            this.stage[i][j-1] = this.c;
-                            this.e_i = i;
-                            this.e_j = j-1;
-                        }
-                    } else if (this.command === 'right') {
-                        if (this.stage[i][j+1] === 1 || this.stage[i][j+1] >= 3) {
-                            this.setCommand();
-                        } else {
-                            this.stage[i][j] = 0;
-                            this.stage[i][j+1] = this.c;
-                            this.e_i = i;
-                            this.e_j = j+1;
-                        }
-                    } else if (this.command === 'up') {
-                        if (this.stage[i-1][j] === 1 || this.stage[i-1][j] >= 3) {
-                            this.setCommand();
-                        } else {
-                            this.stage[i][j] = 0;
-                            this.stage[i-1][j] = this.c;
-                            this.e_i = i-1;
-                            this.e_j = j;
-                        }
-                    } else if (this.command === 'down') {
-                        if (this.stage[i+1][j] === 1 || this.stage[i+1][j] >= 3) {
-                            this.setCommand();
-                        } else {
-                            this.stage[i][j] = 0;
-                            this.stage[i+1][j] = this.c;
-                            this.e_i = i+1;
-                            this.e_j = j;
-                        }
-                    }
-                    return [this.e_i, this.e_j, this.c];
-                }
-                
-                if (this.isSulk == true) {
-                    if (this.stage[this.e_i][this.e_j] === 2) {
-                        // this.stage[this.e_i][this.e_j] = 0;
-                        // delete this;
-                        this.e_i = 0;
-                        this.e_j = 0;
-                        console.log('eee');
-                    }
+                    // else {
+        
+                    //     this.e_i = 1;
+                    //     this.e_j = 1;
+                    //     console.log('isSulk');
+        
+                    //     return [this.e_i, this.e_j, 0];
+                    // }
+                    
+                    // if (this.isSulk === 1) {
+                    // }
+                    // if (this.isSulk == true) {
+                        
+                    //     // if (this.stage[this.e_i][this.e_j] === 2) {
+                    //         // this.stage[this.e_i][this.e_j] = 0;
+                    //         // delete this;
+                    //         // this.e_i = 0;
+                    //         // this.e_j = 0;
+                    //         // console.log('eee');
+                    //     // }
+                    // }
+        
+                    // if (isAlive == 0) {
+                    //     console.log('いない');
+                    // }
                 }
             }
-        } 
+        }
+        // console.log('敵はいないよ');
+        // if (isAlive === 0) {
+        //     return [this.e_i, this.e_j, this.c];
+        // }
+        return [this.e_i, this.e_j, this.c];
     }
 
     // 4つのランダムな方向をコマンドとしてセットする
@@ -109,5 +128,13 @@ class Enemy {
         if (pacman.isPowerPacMan()) {
             this.isSulk = true;
         }
+    }
+
+    destroy() {
+        this.isAlive = 0;
+    }
+
+    getIsAlive() {
+        return this.isAlive;
     }
 }

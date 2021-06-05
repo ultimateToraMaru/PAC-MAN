@@ -1,10 +1,11 @@
 /* https://p5js.jp/get-started/ */
 
 class Stage {
-    constructor(startStage, stagePoints, stageBites) {
+    constructor(startStage, stagePoints, stageBites, enemyList) {
         this.startStage = startStage;
         this.stagePoints = stagePoints;
         this.stageBites = stageBites;
+        this.enemyList = enemyList;
     
         /* パックマン生存フラグ */
         this.turn = 0;
@@ -20,7 +21,7 @@ class Stage {
     getStagePoints() { return this.stagePoints; }
     getStageBites() { return this.stageBites; }
 
-    setChara(pos) {
+    setChara(pos) {     // pos[0], pos[1]: char文字の座標(i, j), pos[2]: char文字
         this.startStage[pos[0]][pos[1]] = pos[2];
     }
 
@@ -57,7 +58,7 @@ class Stage {
                     this.turn++;
                 }
                 // 配列の中身が4の時、エネミーブロック
-                else if(this.startStage[i][j] === 4){
+                else if(this.startStage[i][j] === 4 && this.enemyList[0].getIsAlive() === 1){
                     fill(0, 255, 0);
                 }
                 // 配列の中身が5の時、エネミーブロック

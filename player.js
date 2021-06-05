@@ -10,7 +10,7 @@ class PacMan {
         this.command = '';
         this.setCommand();
 
-        this.hasPowerCokkie = 0;
+        this.hasPowerCokkie = false;
     }
 
     setStage(stage, stageBites) { 
@@ -22,7 +22,7 @@ class PacMan {
     }
 
     isPowerPacMan() {
-        if (this.hasPowerCokkie) return true;
+        if (this.hasPowerCokkie === true) return true;
         else return false;
     }
 
