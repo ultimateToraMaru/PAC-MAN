@@ -1,15 +1,15 @@
 class Enemy {
 
     // 引数: i, j ... エネミーの初期座標  c ... 自分自身を表す文字(4以上の数字)
-    constructor(i, j, c, target) {
+    constructor(i, j, c, color) {
         this.stage = [0];
         this.stagePoints = [0];
 
         // エネミーの初期座標、現在どの座標にいるのかを記憶するためにも使用する
         this.e_i = i;
         this.e_j = j;
-        this.c = c;
-        this.target = target;
+        this.char = c;
+        this.color = color;
 
         this.isSulk = 0;
         this.isAlive = 1;
@@ -22,10 +22,18 @@ class Enemy {
     // 配列this.stagePointsにコマンドポイントを代入する
     setStage(stage, stagePoints) {
         let tmp = stage;
-        tmp[this.e_i][this.e_j] = this.c;
+        tmp[this.e_i][this.e_j] = this.char;
         this.stage = tmp;
         
         this.stagePoints = stagePoints;
+    }
+
+    getColor() {
+        return this.color;
+    }
+
+    getChar() {
+        return this.char;
     }
     
     // エネミー文字を動かすメソッド。
@@ -37,7 +45,7 @@ class Enemy {
             for(let i=0; i<this.stage.length; i++) {
                 for(let j=0; j<this.stage[0].length; j++) {
                     
-                    if(this.stage[i][j] === this.c){
+                    if(this.stage[i][j] === this.char){
                         if (this.stagePoints[i][j] === 9) {
                             this.setCommand();
                         }
@@ -48,7 +56,7 @@ class Enemy {
                                 this.setCommand();
                             } else {
                                 this.stage[i][j] = 0;  
-                                this.stage[i][j-1] = this.c;
+                                this.stage[i][j-1] = this.char;
                                 this.e_i = i;
                                 this.e_j = j-1;
                             }
@@ -57,7 +65,7 @@ class Enemy {
                                 this.setCommand();
                             } else {
                                 this.stage[i][j] = 0;
-                                this.stage[i][j+1] = this.c;
+                                this.stage[i][j+1] = this.char;
                                 this.e_i = i;
                                 this.e_j = j+1;
                             }
@@ -66,7 +74,7 @@ class Enemy {
                                 this.setCommand();
                             } else {
                                 this.stage[i][j] = 0;
-                                this.stage[i-1][j] = this.c;
+                                this.stage[i-1][j] = this.char;
                                 this.e_i = i-1;
                                 this.e_j = j;
                             }
@@ -75,46 +83,18 @@ class Enemy {
                                 this.setCommand();
                             } else {
                                 this.stage[i][j] = 0;
-                                this.stage[i+1][j] = this.c;
+                                this.stage[i+1][j] = this.char;
                                 this.e_i = i+1;
                                 this.e_j = j;
                             }
                         }
-                        return [this.e_i, this.e_j, this.c];
+                        return [this.e_i, this.e_j, this.char];
                     }
-                    // else {
-        
-                    //     this.e_i = 1;
-                    //     this.e_j = 1;
-                    //     console.log('isSulk');
-        
-                    //     return [this.e_i, this.e_j, 0];
-                    // }
-                    
-                    // if (this.isSulk === 1) {
-                    // }
-                    // if (this.isSulk == true) {
-                        
-                    //     // if (this.stage[this.e_i][this.e_j] === 2) {
-                    //         // this.stage[this.e_i][this.e_j] = 0;
-                    //         // delete this;
-                    //         // this.e_i = 0;
-                    //         // this.e_j = 0;
-                    //         // console.log('eee');
-                    //     // }
-                    // }
-        
-                    // if (isAlive == 0) {
-                    //     console.log('いない');
-                    // }
                 }
             }
         }
-        // console.log('敵はいないよ');
-        // if (isAlive === 0) {
-        //     return [this.e_i, this.e_j, this.c];
-        // }
-        return [this.e_i, this.e_j, this.c];
+
+        return [this.e_i, this.e_j, this.char];
     }
 
     // 4つのランダムな方向をコマンドとしてセットする

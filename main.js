@@ -1,6 +1,6 @@
 let p = new PacMan();
-let e1 = new Enemy(i = 1, j = 10, c = 4, target = p);
-let e2 = new Enemy(i = 1, j = 20, c = 5, target = p);
+let e1 = new Enemy(i = 1, j = 10, c = 4, color = 'GREEN');
+let e2 = new Enemy(i = 1, j = 20, c = 5, color = 'RED');
 
 let enemyList = new Array(e1, e2);
 let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
@@ -27,40 +27,35 @@ async function redrawAll() {
             let p_pos = p.move();
             stage.setChara(p_pos);
 
-            e1.setStage(stage.getStage(), stage.getStagePoints());
-            e1.getIsAlive();
-            e1.readFacePanMan(p);
-    
-            let e1_pos = e1.move();
-            stage.setChara(e1_pos);
-            
-            // e2.setStage(stage.getStage(), stage.getStagePoints());
-            // e2.readFacePanMan(p);
-            // let e2_pos = e2.move();
-            // stage.setChara(e2_pos);
+            enemyList.forEach((enemy) => {
+                enemy.setStage(stage.getStage(), stage.getStagePoints());
+                enemy.getIsAlive();
+                enemy.readFacePanMan(p);
+                enemy.move();
+            });
+
 
         } else {
                 
-                e1.setStage(stage.getStage(), stage.getStagePoints());
-                e1.getIsAlive();
-                e1.readFacePanMan(p);
+            let enemy_pos = 0;
+            enemyList.forEach((enemy) => {
+                enemy.setStage(stage.getStage(), stage.getStagePoints());
+                enemy.getIsAlive();
+                enemy.readFacePanMan(p);
                 
-                let e1_pos = e1.move();
-                stage.setChara(e1_pos);
-                
-                // e2.setStage(stage.getStage(), stage.getStagePoints());
-                // e2.readFacePanMan(p);
-                // let e2_pos = e2.move();
-                // stage.setChara(e2_pos);
-                
+                enemy_pos = enemy.move();
+                stage.setChara(enemy_pos);
+
                 p.setStage(stage.getStage(), stage.getStageBites());
             
                 let p_pos = p.move();
                 stage.setChara(p_pos);
                 
-                if (e1_pos[0] === p_pos[0] && e1_pos[1] === p_pos[1]) {
-                    e1.destroy();
+                if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
+                    enemy.destroy();
                 }
+            });
+                
         }
         
         stage.draw();

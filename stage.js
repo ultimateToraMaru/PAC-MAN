@@ -40,11 +40,11 @@ class Stage {
             for(let j=0; j<this.startStage[0].length; j++) {
                 // console.log(i, j);
                 if(this.startStage[i][j] === 0){
-                    fill(0, 0, 0);
+                    fill('BLACK');
                 }
                 // 配列の中身が1の時、青ブロック
                 else if(this.startStage[i][j] === 1) { 
-                    fill(51, 51, 153);
+                    fill('BLUE');
                 }
                 // 配列の中身が2の時、プレイヤーブロック
                 else if(this.startStage[i][j] === 2){ 
@@ -54,27 +54,26 @@ class Stage {
                     // scale(0.02, 0.02);
                     // image(pacManImg, 1000*(j+1), 600*(i+1));
 
-                    fill(255, 255, 0);
+                    fill('YELLOW');
                     this.turn++;
                 }
+
                 // 配列の中身が4の時、エネミーブロック
-                else if(this.startStage[i][j] === 4 && this.enemyList[0].getIsAlive() === 1){
-                    fill(0, 255, 0);
-                }
-                // 配列の中身が5の時、エネミーブロック
-                else if(this.startStage[i][j] === 5){
-                    fill(255, 0, 0);
-                }
+                this.enemyList.forEach((enemy) => {
+                    if(this.startStage[i][j] === enemy.getChar() && enemy.getIsAlive() === 1){
+                        fill(enemy.getColor());
+                    }
+                });
                 
                 rect(h*(j+1), w*(i+1), h, w)    // ブロックの描画
 
                 // 配列の中身が3の時、バイトブロック
                 if(this.stageBites[i][j] === 3){
-                    fill(255, 255, 0);
+                    fill('YELLOW');
                     baitFlag=1;
                     rect(h*(j+1)+h/4, w*(i+1)+w/4, h/2, w/2)    // ブロックの描画
                 }else if(this.stageBites[i][j] === 6){
-                    fill(255, 255, 0);
+                    fill('YELLOW');
                     baitFlag=1;
                     rect(h*(j+1)+h/8, w*(i+1)+w/8, h*3/5, w*3/5)    // ブロックの描画
                 }
