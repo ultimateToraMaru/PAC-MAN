@@ -32,25 +32,25 @@ class PacMan {
             for(let j=0; j<this.stage[0].length; j++) {
                 // stage配列を探索して、プレイヤー文字を探す
                 // 移動しようとしているところが行き止まりでないか事前にチェックをしている
-                if(this.stage[i][j] === 2) {
-                    if(this.command === 'left' && this.stage[i][j-1] !== 1) {
-                        this.stage[i][j] = 0;  
-                        this.stage[i][j-1] = 2;
+                if(this.stage[i][j] === PLAYER) {
+                    if(this.command === 'left' && this.stage[i][j-1] !== BLOCK) {
+                        this.stage[i][j] = NONE;  
+                        this.stage[i][j-1] = PLAYER;
                         this.p_i = i;
                         this.p_j = j-1;
-                    } else if(this.command === 'right' && this.stage[i][j+1] !== 1) {
-                        this.stage[i][j] = 0;
-                        this.stage[i][j+1] = 2;
+                    } else if(this.command === 'right' && this.stage[i][j+1] !== BLOCK) {
+                        this.stage[i][j] = NONE;
+                        this.stage[i][j+1] = PLAYER;
                         this.p_i = i;
                         this.p_j = j+1;
-                    } else if(this.command === 'up' && this.stage[i-1][j] !== 1) {
-                        this.stage[i][j] = 0;
-                        this.stage[i-1][j] = 2;
+                    } else if(this.command === 'up' && this.stage[i-1][j] !== BLOCK) {
+                        this.stage[i][j] = NONE;
+                        this.stage[i-1][j] = PLAYER;
                         this.p_i = i-1;
                         this.p_j = j;
-                    } else if(this.command === 'down' && this.stage[i+1][j] !== 1) {
-                        this.stage[i][j] = 0;
-                        this.stage[i+1][j] = 2;
+                    } else if(this.command === 'down' && this.stage[i+1][j] !== BLOCK) {
+                        this.stage[i][j] = NONE;
+                        this.stage[i+1][j] = PLAYER;
                         this.p_i = i+1;
                         this.p_j = j;
                     } else {
@@ -58,21 +58,14 @@ class PacMan {
                     }
 
                     // エサをゲットする
-                    if (this.stageBites[this.p_i][this.p_j] === 3) {
-                        this.stageBites[this.p_i][this.p_j] = 0;
+                    if (this.stageBites[this.p_i][this.p_j] === BITE) {
+                        this.stageBites[this.p_i][this.p_j] = NONE;
                         sound.play();
-                    } else if (this.stageBites[this.p_i][this.p_j] === 6) {
-                        this.stageBites[this.p_i][this.p_j] = 0;
+                    } else if (this.stageBites[this.p_i][this.p_j] === POWER_COKKIE) {
+                        this.stageBites[this.p_i][this.p_j] = NONE;
                         this.hasPowerCokkie = true;
                     }
-
-                    // if (this.isPowerPacMan) {
-                    //     if (this.stage[this.p_i][this.p_j] === 4 || this.stage[this.p_i][this.p_j] === 5) {
-                    //         this.stage[this.p_i][this.p_j] = 0;
-                    //     }
-                    // }
-
-                    return [this.p_i, this.p_j, 2];
+                    return [this.p_i, this.p_j, PLAYER];
                 }
             }
         } 

@@ -30,13 +30,9 @@ class Enemy {
         this.stagePoints = stagePoints;
     }
 
-    getColor() {
-        return this.statusColor;
-    }
+    getColor() { return this.statusColor; }
 
-    getChar() {
-        return this.char;
-    }
+    getChar() { return this.char; }
     
     // エネミー文字を動かすメソッド。
     // 行き止まりになった時とコマンドポイントに着いた時に、setCommand()を呼び出す
@@ -48,43 +44,43 @@ class Enemy {
                 for(let j=0; j<this.stage[0].length; j++) {
                     
                     if(this.stage[i][j] === this.char){
-                        if (this.stagePoints[i][j] === 9) {
+                        if (this.stagePoints[i][j] === COMMAND_POINT) {
                             this.setCommand();
                         }
                         
                         if (this.command === 'left') {
                             // 行き止まりの時
-                            if (this.stage[i][j-1] === 1 || this.stage[i][j-1] >= 3) {
+                            if (this.stage[i][j-1] === BLOCK || this.stage[i][j-1] >= 3) {
                                 this.setCommand();
                             } else {
-                                this.stage[i][j] = 0;  
+                                this.stage[i][j] = NONE;  
                                 this.stage[i][j-1] = this.char;
                                 this.e_i = i;
                                 this.e_j = j-1;
                             }
                         } else if (this.command === 'right') {
-                            if (this.stage[i][j+1] === 1 || this.stage[i][j+1] >= 3) {
+                            if (this.stage[i][j+1] === BLOCK || this.stage[i][j+1] >= 3) {
                                 this.setCommand();
                             } else {
-                                this.stage[i][j] = 0;
+                                this.stage[i][j] = NONE;
                                 this.stage[i][j+1] = this.char;
                                 this.e_i = i;
                                 this.e_j = j+1;
                             }
                         } else if (this.command === 'up') {
-                            if (this.stage[i-1][j] === 1 || this.stage[i-1][j] >= 3) {
+                            if (this.stage[i-1][j] === BLOCK || this.stage[i-1][j] >= 3) {
                                 this.setCommand();
                             } else {
-                                this.stage[i][j] = 0;
+                                this.stage[i][j] = NONE;
                                 this.stage[i-1][j] = this.char;
                                 this.e_i = i-1;
                                 this.e_j = j;
                             }
                         } else if (this.command === 'down') {
-                            if (this.stage[i+1][j] === 1 || this.stage[i+1][j] >= 3) {
+                            if (this.stage[i+1][j] === BLOCK || this.stage[i+1][j] >= 3) {
                                 this.setCommand();
                             } else {
-                                this.stage[i][j] = 0;
+                                this.stage[i][j] = NONE;
                                 this.stage[i+1][j] = this.char;
                                 this.e_i = i+1;
                                 this.e_j = j;
