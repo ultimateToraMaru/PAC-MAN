@@ -73,7 +73,7 @@ class Stage {
                 if(this.stageBites[i][j] === 3){
                     fill('YELLOW');
                     baitFlag=1;
-                    rect(h*(j+1)+h/4, w*(i+1)+w/4, h/2, w/2)    // ブロックの描画
+                    rect(h*(j+1)+h/4, w*(i+1)+w/4, h/3, w/3)    // ブロックの描画
                 }else if(this.stageBites[i][j] === 6){
                     fill('YELLOW');
                     baitFlag=1;
