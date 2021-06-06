@@ -1,8 +1,9 @@
 let p = new PacMan();
-let e1 = new Enemy(i = 15, j = 10, c = 4, color = 'GREEN');
-let e2 = new Enemy(i = 15, j = 20, c = 5, color = 'RED');
-
-let enemyList = new Array(e1, e2);
+// インスタンス化するenemyを入れていく。
+let enemyList = new Array(
+                    new Enemy(i = 15, j = 10, c = 4, color = 'GREEN'),
+                    new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
+                    
 let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
 
 let pacManImg;

@@ -15,17 +15,16 @@ class PacMan {
 
     setStage(stage, stageBites) { 
         let tmp = stage;
-        tmp[this.p_i][this.p_j] = 2;
+        tmp[this.p_i][this.p_j] = PLAYER;
         this.stage = tmp;
-
+        
         this.stageBites = stageBites;
     }
 
-    isPowerPacMan() {
-        if (this.hasPowerCokkie === true) return true;
-        else return false;
-    }
-
+    setCommand(command) { this.command = command; }
+    
+    isPowerPacMan() { return this.hasPowerCokkie; }
+    
     // プレイヤー文字を動かすメソッド。
     move() {
         // 移動しようとしているところが行き止まりでないか事前にチェックをしている
@@ -64,7 +63,6 @@ class PacMan {
         return [this.p_i, this.p_j, PLAYER];
     }
 
-    setCommand(command) { this.command = command; }
 
     // moveCheck(command)
 }

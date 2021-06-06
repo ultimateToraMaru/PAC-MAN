@@ -37,59 +37,51 @@ class Enemy {
     // エネミー文字を動かすメソッド。
     // 行き止まりになった時とコマンドポイントに着いた時に、setCommand()を呼び出す
     move() {
-        
         if (this.isAlive === 1) {
             // stage配列を探索して、エネミー文字を探す
-            for(let i=0; i<this.stage.length; i++) {
-                for(let j=0; j<this.stage[0].length; j++) {
-                    
-                    if(this.stage[i][j] === this.char){
-                        if (this.stagePoints[i][j] === COMMAND_POINT) {
-                            this.setCommand();
-                        }
-                        
-                        if (this.command === 'left') {
-                            // 行き止まりの時
-                            if (this.stage[i][j-1] === BLOCK || this.stage[i][j-1] >= 3) {
-                                this.setCommand();
-                            } else {
-                                this.stage[i][j] = NONE;  
-                                this.stage[i][j-1] = this.char;
-                                this.e_i = i;
-                                this.e_j = j-1;
-                            }
-                        } else if (this.command === 'right') {
-                            if (this.stage[i][j+1] === BLOCK || this.stage[i][j+1] >= 3) {
-                                this.setCommand();
-                            } else {
-                                this.stage[i][j] = NONE;
-                                this.stage[i][j+1] = this.char;
-                                this.e_i = i;
-                                this.e_j = j+1;
-                            }
-                        } else if (this.command === 'up') {
-                            if (this.stage[i-1][j] === BLOCK || this.stage[i-1][j] >= 3) {
-                                this.setCommand();
-                            } else {
-                                this.stage[i][j] = NONE;
-                                this.stage[i-1][j] = this.char;
-                                this.e_i = i-1;
-                                this.e_j = j;
-                            }
-                        } else if (this.command === 'down') {
-                            if (this.stage[i+1][j] === BLOCK || this.stage[i+1][j] >= 3) {
-                                this.setCommand();
-                            } else {
-                                this.stage[i][j] = NONE;
-                                this.stage[i+1][j] = this.char;
-                                this.e_i = i+1;
-                                this.e_j = j;
-                            }
-                        }
-                        return [this.e_i, this.e_j, this.char];
-                    }
+            if (this.stagePoints[this.e_i][this.e_j] === COMMAND_POINT) {
+                this.setCommand();
+            }
+            
+            if (this.command === 'left') {
+                // 行き止まりの時
+                if (this.stage[this.e_i][this.e_j-1] === BLOCK || this.stage[this.e_i][this.e_j-1] >= 3) {
+                    this.setCommand();
+                } else {
+                    this.stage[this.e_i][this.e_j] = NONE;  
+                    this.stage[this.e_i][this.e_j-1] = this.char;
+                    this.e_i = this.e_i;
+                    this.e_j = this.e_j-1;
+                }
+            } else if (this.command === 'right') {
+                if (this.stage[this.e_i][this.e_j+1] === BLOCK || this.stage[this.e_i][this.e_j+1] >= 3) {
+                    this.setCommand();
+                } else {
+                    this.stage[this.e_i][this.e_j] = NONE;
+                    this.stage[this.e_i][this.e_j+1] = this.char;
+                    this.e_i = this.e_i;
+                    this.e_j = this.e_j+1;
+                }
+            } else if (this.command === 'up') {
+                if (this.stage[this.e_i-1][this.e_j] === BLOCK || this.stage[this.e_i-1][this.e_j] >= 3) {
+                    this.setCommand();
+                } else {
+                    this.stage[this.e_i][this.e_j] = NONE;
+                    this.stage[this.e_i-1][this.e_j] = this.char;
+                    this.e_i = this.e_i-1;
+                    this.e_j = this.e_j;
+                }
+            } else if (this.command === 'down') {
+                if (this.stage[this.e_i+1][this.e_j] === BLOCK || this.stage[this.e_i+1][this.e_j] >= 3) {
+                    this.setCommand();
+                } else {
+                    this.stage[this.e_i][this.e_j] = NONE;
+                    this.stage[this.e_i+1][this.e_j] = this.char;
+                    this.e_i = this.e_i+1;
+                    this.e_j = this.e_j;
                 }
             }
+            return [this.e_i, this.e_j, this.char];
         }
 
         return [this.e_i, this.e_j, this.char];
