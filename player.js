@@ -24,6 +24,7 @@ class PacMan {
     setCommand(command) { this.command = command; }
     
     isPowerPacMan() { return this.hasPowerCokkie; }
+    endOfPowerTime() { this.hasPowerCokkie = false; }
     
     // プレイヤー文字を動かすメソッド。
     move() {
@@ -64,5 +65,11 @@ class PacMan {
     }
 
 
-    // moveCheck(command)
+    // moveCheck(command, i, j) {
+    //     if (this.stage[i][j] !== BLOCK) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 }

@@ -3,7 +3,7 @@ let p = new PacMan();
 let enemyList = new Array(
                     new Enemy(i = 15, j = 10, c = 4, color = 'GREEN'),
                     new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
-                    
+
 let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
 
 let pacManImg;
@@ -19,9 +19,14 @@ function setup() {
     redrawAll();
 }
 
+let startPowerTurn = 0;
+let nowPowerTurn = 0; 
+
 async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
+
+        /* パックマンが通常時 */
         if (p.isPowerPacMan() === false) {
             p.setStage(stage.getStage(), stage.getStageBites());
             
@@ -34,10 +39,11 @@ async function redrawAll() {
                 enemy.readFacePanMan(p);
                 enemy.move();
             });
+            stage.draw();
+            continue;
+        } 
 
-
-        } else {
-                
+        if (p.isPowerPacMan() === true) {
             let enemy_pos = 0;
             enemyList.forEach((enemy) => {
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
@@ -56,11 +62,28 @@ async function redrawAll() {
                     enemy.destroy();
                 }
             });
-                
+            stage.draw();   
         }
-        
-        stage.draw();
+
+        /* パックマンがパワーパックマン時 */
+        if (startPowerTurn === 0) {
+            startPowerTurn = stage.getTurn();
+            console.log('はじまりはじまり');
+        }
+        nowPowerTurn = stage.getTurn();
+        // console.log('のこり', 30 - (nowPowerTurn - startPowerTurn))
+
+        if (isTimeOver()) {
+            p.endOfPowerTime();
+            startPowerTurn = 0;
+            nowPowerTurn = 0;
+            console.log('おわりおわり');
+        }
     }
+}
+
+function isTimeOver() {
+    return nowPowerTurn - startPowerTurn == 30;
 }
 
 
