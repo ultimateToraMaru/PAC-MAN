@@ -56,7 +56,11 @@ class PacMan {
         // エサをゲットする
         if (this.stageBites[this.p_i][this.p_j] === BITE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
-            sound.play();
+            try {
+                sound.play();
+            } catch (e) {
+                console.log(e);
+            }
         } else if (this.stageBites[this.p_i][this.p_j] === POWER_COKKIE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             this.hasPowerCokkie = true;

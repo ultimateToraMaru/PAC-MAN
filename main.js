@@ -19,9 +19,6 @@ function setup() {
     redrawAll();
 }
 
-let startPowerTurn = 0;
-let nowPowerTurn = 0; 
-
 async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
@@ -35,7 +32,7 @@ async function redrawAll() {
 
             enemyList.forEach((enemy) => {
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
-                enemy.getIsAlive();
+                // enemy.getIsAlive();
                 enemy.readFacePanMan(p);
                 enemy.move();
             });
@@ -43,11 +40,18 @@ async function redrawAll() {
             continue;
         } 
 
+        /* パックマンがパワーパックマン時 */
+        // パワーパックマンはエネミーを食べることができる！日頃の恨みを晴らせ！
+        // でも、運が悪いとうまく食べれなかったり、青ブロックに変身したりするぞ！
+        // 力を手に入れたからと言って調子に乗ると痛い目を見るぞ！気をつけろ！
         if (p.isPowerPacMan() === true) {
             let enemy_pos = 0;
             enemyList.forEach((enemy) => {
+                if (!enemy.getIsAlive()) {
+                    console.log('生きてる');
+                    enemy.countDownEnemyComeBack();
+                }
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
-                enemy.getIsAlive();
                 enemy.readFacePanMan(p);
                 
                 enemy_pos = enemy.move();
@@ -58,32 +62,37 @@ async function redrawAll() {
                 let p_pos = p.move();
                 stage.setChara(p_pos);
                 
+                // パックマンがエネミーを食べた時
                 if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
                     enemy.destroy();
+                    enemy.startCountDownEnemyComeBack(stage.getTurn());
                 }
             });
             stage.draw();   
+            checkPowerPacmanTurn();
         }
 
-        /* パックマンがパワーパックマン時 */
-        if (startPowerTurn === 0) {
-            startPowerTurn = stage.getTurn();
-            console.log('はじまりはじまり');
-        }
-        nowPowerTurn = stage.getTurn();
-        // console.log('のこり', 30 - (nowPowerTurn - startPowerTurn))
 
-        if (isTimeOver()) {
-            p.endOfPowerTime();
-            startPowerTurn = 0;
-            nowPowerTurn = 0;
-            console.log('おわりおわり');
-        }
     }
 }
 
-function isTimeOver() {
-    return nowPowerTurn - startPowerTurn == 30;
+let startPowerTurn = 0;
+let tmpPowerTurn = 0;
+const MAXPOWERTURN = 30;
+function checkPowerPacmanTurn() {
+    if (startPowerTurn === 0) {
+        startPowerTurn = stage.getTurn();
+        console.log('はじまりはじまり');
+    }
+    tmpPowerTurn = stage.getTurn();
+    // console.log('のこり', 30 - (nowPowerTurn - startPowerTurn))
+
+    if (tmpPowerTurn - startPowerTurn == MAXPOWERTURN) {
+        p.endOfPowerTime();
+        startPowerTurn = 0;
+        tmpPowerTurn = 0;
+        console.log('おわりおわり');
+    }
 }
 
 

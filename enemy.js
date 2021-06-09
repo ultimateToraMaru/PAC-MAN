@@ -6,6 +6,9 @@ class Enemy {
         this.stagePoints = [0];
 
         // エネミーの初期座標、現在どの座標にいるのかを記憶するためにも使用する
+        this.initial_i = i;
+        this.initial_j = j;
+
         this.e_i = i;
         this.e_j = j;
         this.char = c;
@@ -15,6 +18,10 @@ class Enemy {
 
         this.isSulk = 0;
         this.isAlive = 1;
+
+        this.destroyTurn = 0;
+        this.tmpDestroyTurn = 0;
+        this.MAXDESTROYTURN = 30;
 
         this.command = '';
         this.setCommand();
@@ -109,5 +116,31 @@ class Enemy {
 
     getIsAlive() {
         return this.isAlive;
+    }
+
+
+        // やっぱり生き返らさなくてもいいんじゃない
+        // ランダムや一定間隔でエネミーを自動生成していく方がいいのか
+        // ためてためて一気に片づけたら気持ちいいのでは？
+    comeBack() {
+        this.isAlive = 1;
+        this.e_i = this.initial_i;
+        this.e_j = this.initial_j;
+    }
+
+    startCountDownEnemyComeBack(turn) {
+        this.destroyTurn = turn;
+    }
+
+    countDownEnemyComeBack(turn) {
+        this.tmpDestroyTurn = turn;
+    
+        if (this.tmpDestroyTurn - this.destroyTurn == this.MAXDESTROYTURN) {
+            p.endOfPowerTime();
+            this.tmpDestroyTurn = 0;
+            tmpDestroyTurn = 0;
+            this.comeBack();
+            console.log('さあよみがえるのです。');
+        }
     }
 }
