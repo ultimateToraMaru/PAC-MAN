@@ -52,7 +52,7 @@ class Enemy {
             
             if (this.command === 'left') {
                 // 行き止まりの時
-                if (this.stage[this.e_i][this.e_j-1] === BLOCK || this.stage[this.e_i][this.e_j-1] >= 3) {
+                if (this.stage[this.e_i][this.e_j-1] === BLOCK || this.stage[this.e_i][this.e_j-1] > 3) {
                     this.setCommand();
                 } else {
                     this.stage[this.e_i][this.e_j] = NONE;  
@@ -61,7 +61,7 @@ class Enemy {
                     this.e_j = this.e_j-1;
                 }
             } else if (this.command === 'right') {
-                if (this.stage[this.e_i][this.e_j+1] === BLOCK || this.stage[this.e_i][this.e_j+1] >= 3) {
+                if (this.stage[this.e_i][this.e_j+1] === BLOCK || this.stage[this.e_i][this.e_j+1] > 3) {
                     this.setCommand();
                 } else {
                     this.stage[this.e_i][this.e_j] = NONE;
@@ -70,7 +70,7 @@ class Enemy {
                     this.e_j = this.e_j+1;
                 }
             } else if (this.command === 'up') {
-                if (this.stage[this.e_i-1][this.e_j] === BLOCK || this.stage[this.e_i-1][this.e_j] >= 3) {
+                if (this.stage[this.e_i-1][this.e_j] === BLOCK || this.stage[this.e_i-1][this.e_j] > 3) {
                     this.setCommand();
                 } else {
                     this.stage[this.e_i][this.e_j] = NONE;
@@ -79,7 +79,7 @@ class Enemy {
                     this.e_j = this.e_j;
                 }
             } else if (this.command === 'down') {
-                if (this.stage[this.e_i+1][this.e_j] === BLOCK || this.stage[this.e_i+1][this.e_j] >= 3) {
+                if (this.stage[this.e_i+1][this.e_j] === BLOCK || this.stage[this.e_i+1][this.e_j] > 3) {
                     this.setCommand();
                 } else {
                     this.stage[this.e_i][this.e_j] = NONE;
@@ -112,6 +112,7 @@ class Enemy {
 
     destroy() {
         this.isAlive = 0;
+        this.comeBack();
     }
 
     getIsAlive() {
@@ -128,19 +129,19 @@ class Enemy {
         this.e_j = this.initial_j;
     }
 
-    startCountDownEnemyComeBack(turn) {
-        this.destroyTurn = turn;
-    }
+    // startCountDownEnemyComeBack(turn) {
+    //     this.destroyTurn = turn;
+    // }
 
-    countDownEnemyComeBack(turn) {
-        this.tmpDestroyTurn = turn;
+    // countDownEnemyComeBack(turn) {
+    //     this.tmpDestroyTurn = turn;
     
-        if (this.tmpDestroyTurn - this.destroyTurn == this.MAXDESTROYTURN) {
-            p.endOfPowerTime();
-            this.tmpDestroyTurn = 0;
-            tmpDestroyTurn = 0;
-            this.comeBack();
-            console.log('さあよみがえるのです。');
-        }
-    }
+    //     if (this.tmpDestroyTurn - this.destroyTurn == this.MAXDESTROYTURN) {
+    //         p.endOfPowerTime();
+    //         this.tmpDestroyTurn = 0;
+    //         tmpDestroyTurn = 0;
+    //         this.comeBack();
+    //         console.log('さあよみがえるのです。');
+    //     }
+    // }
 }

@@ -36,6 +36,8 @@ async function redrawAll() {
                 enemy.readFacePanMan(p);
                 enemy.move();
             });
+
+            enemyGenerator();
             stage.draw();
             continue;
         } 
@@ -46,11 +48,13 @@ async function redrawAll() {
         // 力を手に入れたからと言って調子に乗ると痛い目を見るぞ！気をつけろ！
         if (p.isPowerPacMan() === true) {
             let enemy_pos = 0;
-            enemyList.forEach((enemy) => {
-                if (!enemy.getIsAlive()) {
-                    console.log('生きてる');
-                    enemy.countDownEnemyComeBack();
-                }
+            enemyList.forEach((enemy, i) => {
+                // if (!enemy.getIsAlive()) {
+                //     console.log('生きてる');
+                //     enemy.countDownEnemyComeBack();
+                // } else {
+                //     console.log('死んでる');
+                // }
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
                 enemy.readFacePanMan(p);
                 
@@ -65,7 +69,8 @@ async function redrawAll() {
                 // パックマンがエネミーを食べた時
                 if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
                     enemy.destroy();
-                    enemy.startCountDownEnemyComeBack(stage.getTurn());
+                    enemyList.splice(i, 1);
+                    // enemy.startCountDownEnemyComeBack(stage.getTurn());
                 }
             });
             stage.draw();   
@@ -92,6 +97,22 @@ function checkPowerPacmanTurn() {
         startPowerTurn = 0;
         tmpPowerTurn = 0;
         console.log('おわりおわり');
+    }
+}
+
+function enemyGenerator() {
+    let r = Math.floor(Math.random() * 50);  // 0~49の範囲の乱数
+    const maxEnemys = 5;
+    if (enemyList.length <= maxEnemys) {
+        if (r === 10) {
+            enemyList.push(new Enemy(i = 15, j = 20, c = r, color = 'RED'));
+        } else if (r === 20) {
+            enemyList.push(new Enemy(i = 15, j = 10, c = r, color = 'GREEN'));
+        } else if (r === 30) {
+            enemyList.push(new Enemy(i = 18, j = 20, c = r, color = 'ORANGE'));
+        } else if (r === 40) {
+            enemyList.push(new Enemy(i = 18, j = 10, c = r, color = 'SKYBLUE'));
+        }
     }
 }
 
