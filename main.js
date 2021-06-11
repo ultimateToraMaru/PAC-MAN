@@ -48,6 +48,11 @@ async function redrawAll() {
         // 力を手に入れたからと言って調子に乗ると痛い目を見るぞ！気をつけろ！
         if (p.isPowerPacMan() === true) {
             let enemy_pos = 0;
+
+            // パワーパックマン時にはパックマンのスピードが倍速にすために2かいp.move()をしている
+            p.move();
+            let p_pos = p.move();
+            
             enemyList.forEach((enemy, i) => {
                 // if (!enemy.getIsAlive()) {
                 //     console.log('生きてる');
@@ -60,11 +65,6 @@ async function redrawAll() {
                 
                 enemy_pos = enemy.move();
                 stage.setChara(enemy_pos);
-
-                p.setStage(stage.getStage(), stage.getStageBites());
-            
-                let p_pos = p.move();
-                stage.setChara(p_pos);
                 
                 // パックマンがエネミーを食べた時
                 if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
@@ -73,6 +73,12 @@ async function redrawAll() {
                     // enemy.startCountDownEnemyComeBack(stage.getTurn());
                 }
             });
+
+            p.setStage(stage.getStage(), stage.getStageBites());
+            
+            // p_pos = p.move();
+            stage.setChara(p_pos);
+
             stage.draw();   
             checkPowerPacmanTurn();
         }
@@ -83,7 +89,7 @@ async function redrawAll() {
 
 let startPowerTurn = 0;
 let tmpPowerTurn = 0;
-const MAXPOWERTURN = 30;
+const MAXPOWERTURN = 50;
 function checkPowerPacmanTurn() {
     if (startPowerTurn === 0) {
         startPowerTurn = stage.getTurn();
