@@ -52,12 +52,6 @@ async function redrawAll() {
             let p_pos = p.move();
 
             enemyList.forEach((enemy, i) => {
-                // if (!enemy.getIsAlive()) {
-                //     console.log('生きてる');
-                //     enemy.countDownEnemyComeBack();
-                // } else {
-                //     console.log('死んでる');
-                // }
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
                 enemy.readFacePanMan(p);
                 
@@ -77,8 +71,6 @@ async function redrawAll() {
             stage.draw();   
             checkPowerPacmanTurn();
         }
-
-
     }
 }
 

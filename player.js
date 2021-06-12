@@ -53,27 +53,20 @@ class PacMan {
             this.stage[this.p_i][this.p_j] = 2;
         }
 
-        // エサをゲットする
+        this.checkBiteAndGet();
+
+        return [this.p_i, this.p_j, PLAYER];
+    }
+
+    // エサがあるかチェックしてゲットする関数
+    checkBiteAndGet() {
         if (this.stageBites[this.p_i][this.p_j] === BITE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
-            try {
-                playSE();
-            } catch (e) {
-                console.log(e);
-            }
+            playSE();
+
         } else if (this.stageBites[this.p_i][this.p_j] === POWER_COKKIE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             this.hasPowerCokkie = true;
         }
-        return [this.p_i, this.p_j, PLAYER];
     }
-
-
-    // moveCheck(command, i, j) {
-    //     if (this.stage[i][j] !== BLOCK) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 }

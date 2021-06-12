@@ -16,12 +16,7 @@ class Enemy {
         this.baseColor = color;
         this.statusColor = color;
 
-        this.isSulk = 0;
         this.isAlive = 1;
-
-        this.destroyTurn = 0;
-        this.tmpDestroyTurn = 0;
-        this.MAXDESTROYTURN = 30;
 
         this.command = '';
         this.setCommand();
@@ -45,10 +40,8 @@ class Enemy {
     // 行き止まりになった時とコマンドポイントに着いた時に、setCommand()を呼び出す
     move() {
         if (this.isAlive === 1) {
-            // stage配列を探索して、エネミー文字を探す
-            if (this.stagePoints[this.e_i][this.e_j] === COMMAND_POINT) {
-                this.setCommand();
-            }
+
+            this.checkCommandPoint();
             
             if (this.command === 'left') {
                 // 行き止まりの時
@@ -94,6 +87,12 @@ class Enemy {
         return [this.e_i, this.e_j, this.char];
     }
 
+    checkCommandPoint() {
+        if (this.stagePoints[this.e_i][this.e_j] === COMMAND_POINT) {
+            this.setCommand();
+        }
+    }
+
     // 4つのランダムな方向をコマンドとしてセットする
     setCommand() {
         let r = Math.floor(Math.random() * 4);
@@ -103,7 +102,6 @@ class Enemy {
 
     readFacePanMan(pacman) {
         if (pacman.isPowerPacMan()) {
-            this.isSulk = true;
             this.statusColor = 'PURPLE';
         } else {
             this.statusColor = this.baseColor;
@@ -112,36 +110,9 @@ class Enemy {
 
     destroy() {
         this.isAlive = 0;
-        this.comeBack();
     }
 
     getIsAlive() {
         return this.isAlive;
     }
-
-
-        // やっぱり生き返らさなくてもいいんじゃない
-        // ランダムや一定間隔でエネミーを自動生成していく方がいいのか
-        // ためてためて一気に片づけたら気持ちいいのでは？
-    comeBack() {
-        this.isAlive = 1;
-        this.e_i = this.initial_i;
-        this.e_j = this.initial_j;
-    }
-
-    // startCountDownEnemyComeBack(turn) {
-    //     this.destroyTurn = turn;
-    // }
-
-    // countDownEnemyComeBack(turn) {
-    //     this.tmpDestroyTurn = turn;
-    
-    //     if (this.tmpDestroyTurn - this.destroyTurn == this.MAXDESTROYTURN) {
-    //         p.endOfPowerTime();
-    //         this.tmpDestroyTurn = 0;
-    //         tmpDestroyTurn = 0;
-    //         this.comeBack();
-    //         console.log('さあよみがえるのです。');
-    //     }
-    // }
 }

@@ -3,6 +3,7 @@ const h = 12, w = 12;
 
 /* char文字一覧 */
 const NONE = 0;
+const ENEMY_POINT = 4;
 const BLOCK = 1;
 const PLAYER = 2;
 const BITE = 3;

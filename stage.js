@@ -23,7 +23,8 @@ class Stage {
 
     getTurn() { return this.turn; }
 
-    setChara(pos) {     // pos[0], pos[1]: char文字の座標(i, j), pos[2]: char文字
+    setChara(pos) {     
+        // pos[0], pos[1]: char文字の座標(i, j), pos[2]: char文字
         this.startStage[pos[0]][pos[1]] = pos[2];
     }
 
@@ -40,10 +41,12 @@ class Stage {
         /* ステージの描画 */
         for(let i=0; i<this.startStage.length; i++) {
             for(let j=0; j<this.startStage[0].length; j++) {
-                // console.log(i, j);
                 if(this.startStage[i][j] === NONE){
                     fill('BLACK');
                 }
+                // else if(this.startStage[i][j] === ENEMY_POINT) { 
+                //     fill('GRAY');
+                // }
                 // 配列の中身が1の時、青ブロック
                 else if(this.startStage[i][j] === BLOCK) { 
                     fill('BLUE');
