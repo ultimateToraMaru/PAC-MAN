@@ -9,13 +9,11 @@ let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
 let pacManImg;
 let sound;
 
-function preload() {
-    pacManImg = loadImage('./imgs/Pac-Man-0.png');
-    sound = loadSound('./imgs/botan_b44.mp3');
-}
+
 
 function setup() {
     createCanvas(960, 960);
+    playBGM();
     redrawAll();
 }
 
@@ -52,7 +50,7 @@ async function redrawAll() {
             // パワーパックマン時にはパックマンのスピードが倍速にすために2かいp.move()をしている
             p.move();
             let p_pos = p.move();
-            
+
             enemyList.forEach((enemy, i) => {
                 // if (!enemy.getIsAlive()) {
                 //     console.log('生きてる');
@@ -108,7 +106,7 @@ function checkPowerPacmanTurn() {
 
 function enemyGenerator() {
     let r = Math.floor(Math.random() * 50);  // 0~49の範囲の乱数
-    const maxEnemys = 5;
+    const maxEnemys = 30;
     if (enemyList.length <= maxEnemys) {
         if (r === 10) {
             enemyList.push(new Enemy(i = 15, j = 20, c = r, color = 'RED'));

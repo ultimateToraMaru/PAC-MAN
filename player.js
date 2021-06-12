@@ -57,7 +57,7 @@ class PacMan {
         if (this.stageBites[this.p_i][this.p_j] === BITE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             try {
-                sound.play();
+                playSE();
             } catch (e) {
                 console.log(e);
             }
