@@ -21,6 +21,7 @@ async function redrawAll() {
     while(!stage.gameTurn()) {
         await sleep(250);
 
+        playBGM(p.isPowerPacMan());
         /* パックマンが通常時 */
         if (p.isPowerPacMan() === false) {
             p.setStage(stage.getStage(), stage.getStageBites());
@@ -30,7 +31,6 @@ async function redrawAll() {
 
             enemyList.forEach((enemy) => {
                 enemy.setStage(stage.getStage(), stage.getStagePoints());
-                // enemy.getIsAlive();
                 enemy.readFacePanMan(p);
                 enemy.move();
             });
@@ -68,13 +68,10 @@ async function redrawAll() {
                 if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
                     enemy.destroy();
                     enemyList.splice(i, 1);
-                    // enemy.startCountDownEnemyComeBack(stage.getTurn());
                 }
             });
 
             p.setStage(stage.getStage(), stage.getStageBites());
-            
-            // p_pos = p.move();
             stage.setChara(p_pos);
 
             stage.draw();   
