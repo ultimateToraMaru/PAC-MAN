@@ -6,13 +6,17 @@ let enemyList = new Array(
 
 let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
 
-let pacManImg;
-let sound;
-
-
-
 function setup() {
+    start();
+}
+
+async function start() {
     createCanvas(960, 960);
+    stage.draw();
+
+    readyGo();
+    await sleep(3000);
+
     playBGM();
     redrawAll();
 }
@@ -61,6 +65,7 @@ async function redrawAll() {
                 // パックマンがエネミーを食べた時
                 if (enemy_pos[0] === p_pos[0] && enemy_pos[1] === p_pos[1]) {
                     enemy.destroy();
+                    playPowerSE()
                     enemyList.splice(i, 1);
                 }
             });
@@ -70,6 +75,7 @@ async function redrawAll() {
 
             stage.draw();   
             checkPowerPacmanTurn();
+            continue;
         }
     }
 }
@@ -80,16 +86,13 @@ const MAXPOWERTURN = 50;
 function checkPowerPacmanTurn() {
     if (startPowerTurn === 0) {
         startPowerTurn = stage.getTurn();
-        console.log('はじまりはじまり');
     }
     tmpPowerTurn = stage.getTurn();
-    // console.log('のこり', 30 - (nowPowerTurn - startPowerTurn))
 
     if (tmpPowerTurn - startPowerTurn == MAXPOWERTURN) {
         p.endOfPowerTime();
         startPowerTurn = 0;
         tmpPowerTurn = 0;
-        console.log('おわりおわり');
     }
 }
 
@@ -108,7 +111,6 @@ function enemyGenerator() {
         }
     }
 }
-
 
 // ユーザからの入力(a, d, w, s)を受け付ける
 window.addEventListener('DOMContentLoaded', function(){

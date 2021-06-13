@@ -90,7 +90,7 @@ class Stage {
         /* バイトフラグが立たないとき(ステージ上のエサをすべて食べた時)、ゲームクリア */
         if (baitFlag === 0) {
             this.isGameSet = 1;
-            console.log('gameClear!');
+            gameClear();
         }
     }
 
@@ -101,7 +101,7 @@ class Stage {
         // ゲームオーバーの条件(同じターンが続いた時)
         if(this.turn !== 0 && this.tmpTurn == this.turn) {
             this.isGameSet = 1;
-            console.log('GameOber!');
+            gameOver();
         }
         this.tmpTurn = this.turn;
 

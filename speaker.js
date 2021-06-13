@@ -1,9 +1,10 @@
 
 function preload() {
     pacManImg = loadImage('./imgs/Pac-Man-0.png');
-    sound = loadSound('./imgs/botan_b44.mp3');
-    normalBgm = loadSound('./imgs/8bit03.mp3');
-    powerBgm = loadSound('./imgs/8bit25.mp3');
+    pacSe = loadSound('./imgs/onjin_botan44.mp3');
+    powerSe = loadSound('./imgs/onjin_botan22.mp3');
+    normalBgm = loadSound('./imgs/maou_8bit03.mp3');
+    powerBgm = loadSound('./imgs/maou_8bit25.mp3');
 }
 
 let isPlayPowerBgm = false;
@@ -23,6 +24,10 @@ function playBGM(isPowerPacMan) {
     }
 }
 
-function playSE() {
-    sound.play();
+function playPacSE() {
+    pacSe.play();
+}
+
+function playPowerSE() {
+    powerSe.play();
 }
