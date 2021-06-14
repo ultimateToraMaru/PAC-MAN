@@ -10,7 +10,6 @@ function preload() {
 let isPlayPowerBgm = false;
 let isPlayNormalBgm = false;
 function playBGM(isPowerPacMan) {
-
     if (isPlayPowerBgm === false && isPowerPacMan === true) {
         normalBgm.stop();
         powerBgm.loop();

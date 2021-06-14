@@ -63,10 +63,12 @@ class PacMan {
         if (this.stageBites[this.p_i][this.p_j] === BITE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             playPacSE();
+            addScore('bite');
 
         } else if (this.stageBites[this.p_i][this.p_j] === POWER_COKKIE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             playPowerSE();
+            addScore('cokkie');
             this.hasPowerCokkie = true;
         }
     }

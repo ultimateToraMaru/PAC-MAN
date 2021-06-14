@@ -71,7 +71,7 @@ async function redrawAll() {
                     enemy.destroy();
                     playPowerSE()
                     enemyList.splice(i, 1);
-                    score.addEnemyScore();
+                    addScore('enemy');
                 }
             });
 
@@ -82,6 +82,16 @@ async function redrawAll() {
             checkPowerPacmanTurn();
             continue;
         }
+    }
+}
+
+function addScore(type) {
+    if (type === 'bite') {
+        score.addBiteScore();
+    } else if (type === 'cookie') {
+        score.addCookieScore();
+    } else if (type === 'enemy') {
+        score.addEnemyScore();
     }
 }
 

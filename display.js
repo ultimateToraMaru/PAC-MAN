@@ -6,7 +6,7 @@ async function displayRadyGo() {
 }
 
 function displayScore(score) {
-    document.getElementById('innerhtml').innerHTML = score;
+    document.getElementById('innerhtml').innerHTML = '<h1>SCORE: '+score+'</h1>';
 }
 
 function diaplayGameOver() {
