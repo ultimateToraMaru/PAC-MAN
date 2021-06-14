@@ -6,6 +6,8 @@ let enemyList = new Array(
 
 let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
 
+let score = new Score();
+
 function setup() {
     start();
 }
@@ -14,7 +16,7 @@ async function start() {
     createCanvas(960, 960);
     stage.draw();
 
-    readyGo();
+    displayRadyGo();
     await sleep(3000);
 
     playBGM();
@@ -26,6 +28,8 @@ async function redrawAll() {
         await sleep(250);
 
         playBGM(p.isPowerPacMan());
+        displayScore(score.getScore());
+
         /* パックマンが通常時 */
         if (p.isPowerPacMan() === false) {
             p.setStage(stage.getStage(), stage.getStageBites());
@@ -67,13 +71,14 @@ async function redrawAll() {
                     enemy.destroy();
                     playPowerSE()
                     enemyList.splice(i, 1);
+                    score.addEnemyScore();
                 }
             });
 
             p.setStage(stage.getStage(), stage.getStageBites());
             stage.setChara(p_pos);
 
-            stage.draw();   
+            stage.draw();
             checkPowerPacmanTurn();
             continue;
         }
@@ -82,7 +87,7 @@ async function redrawAll() {
 
 let startPowerTurn = 0;
 let tmpPowerTurn = 0;
-const MAXPOWERTURN = 50;
+const MAXPOWERTURN = 50;    // パワーパックマンの持続時間。50ターンくらいが適切。
 function checkPowerPacmanTurn() {
     if (startPowerTurn === 0) {
         startPowerTurn = stage.getTurn();

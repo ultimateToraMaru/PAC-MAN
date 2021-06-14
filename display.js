@@ -1,14 +1,18 @@
-async function readyGo() {
+async function displayRadyGo() {
     document.getElementById('innerhtml').innerHTML = '<h1>Ready...</h1>';
     await sleep(2000);
     document.getElementById('innerhtml').innerHTML = '<h1>Go!!</h1>';
     await sleep(1000);
 }
 
-function gameOver() {
+function displayScore(score) {
+    document.getElementById('innerhtml').innerHTML = score;
+}
+
+function diaplayGameOver() {
     document.getElementById('innerhtml').innerHTML = '<h1>GAME OVER</h1>';
 }
 
-function gameClear() {
+function displayGameClear() {
     document.getElementById('innerhtml').innerHTML = '<h1>GAME CLEAR</h1>';
 }
