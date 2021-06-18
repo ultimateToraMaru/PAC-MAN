@@ -1,11 +1,4 @@
 let p = new PacMan();
-// インスタンス化するenemyを入れていく。
-let enemyList = new Array(
-                    new Enemy(i = 15, j = 10, c = 4, color = 'GREEN'),
-                    new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
-
-let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
-
 let score = new Score();
 
 function setup() {
@@ -13,6 +6,13 @@ function setup() {
 }
 
 async function start() {
+    // イスタンス生成
+    let enemyList = new Array(
+        new Enemy(i = 15, j = 10, c = 4, color = 'GREEN'),
+        new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
+
+    let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
+
     createCanvas(960, 960);
     stage.draw();
 
@@ -20,15 +20,15 @@ async function start() {
     await sleep(3000);
 
     playBGM();
-    redrawAll();
+    redrawAll(enemyList, stage);
 }
 
-async function redrawAll() {
+async function redrawAll(enemyList, stage) {
+        
     while(!stage.gameTurn()) {
         await sleep(250);
 
         playBGM(p.isPowerPacMan());
-        displayScore(score.getScore());
 
         /* パックマンが通常時 */
         if (p.isPowerPacMan() === false) {
@@ -43,7 +43,7 @@ async function redrawAll() {
                 enemy.move();
             });
 
-            enemyGenerator();
+            enemyGenerator(enemyList);
             stage.draw();
             continue;
         } 
@@ -79,12 +79,15 @@ async function redrawAll() {
             stage.setChara(p_pos);
 
             stage.draw();
-            checkPowerPacmanTurn();
+            checkPowerPacmanTurn(stage.getTurn());
             continue;
         }
     }
 }
 
+// 嫌な関数。privateな奴にpublic関数でアクセスしてる
+// privateの意味がないのでは。
+// いつか直さないと。
 function addScore(type) {
     if (type === 'bite') {
         score.addBiteScore();
@@ -93,16 +96,18 @@ function addScore(type) {
     } else if (type === 'enemy') {
         score.addEnemyScore();
     }
+
+    displayScore(score.getScore());
 }
 
 let startPowerTurn = 0;
 let tmpPowerTurn = 0;
 const MAXPOWERTURN = 50;    // パワーパックマンの持続時間。50ターンくらいが適切。
-function checkPowerPacmanTurn() {
+function checkPowerPacmanTurn(thisTurn) {
     if (startPowerTurn === 0) {
-        startPowerTurn = stage.getTurn();
+        startPowerTurn = thisTurn;
     }
-    tmpPowerTurn = stage.getTurn();
+    tmpPowerTurn = thisTurn;
 
     if (tmpPowerTurn - startPowerTurn == MAXPOWERTURN) {
         p.endOfPowerTime();
@@ -111,7 +116,7 @@ function checkPowerPacmanTurn() {
     }
 }
 
-function enemyGenerator() {
+function enemyGenerator(enemyList) {
     let r = Math.floor(Math.random() * 50);  // 0~49の範囲の乱数
     const maxEnemys = 30;
     if (enemyList.length <= maxEnemys) {

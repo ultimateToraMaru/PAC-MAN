@@ -10,6 +10,7 @@ class PacMan {
         this.command = '';
         this.setCommand();
 
+        this.life = 3;
         this.hasPowerCokkie = false;
     }
 
@@ -57,6 +58,18 @@ class PacMan {
 
         return [this.p_i, this.p_j, PLAYER];
     }
+
+    // isGoSign(command) {
+    //     if (command === 'left') {
+    //         return this.stage[this.p_i][this.p_j-1] !== BLOCK;
+    //     } else if (command === 'right') {
+    //         return this.stage[this.p_i][this.p_j+1] !== BLOCK;
+    //     } else if (command === 'up') {
+    //         return this.stage[this.p_i-1][this.p_j] !== BLOCK;
+    //     } else if (command === 'down') {
+    //         return this.stage[this.p_i+1][this.p_j] !== BLOCK;
+    //     }
+    // }
 
     // エサがあるかチェックしてゲットする関数
     checkBiteAndGet() {
