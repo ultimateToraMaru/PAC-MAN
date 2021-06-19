@@ -28,11 +28,14 @@ class Stage {
         this.startStage[pos[0]][pos[1]] = pos[2];
     }
 
+    retry() { this.isGameSet = 1; }
+
     // ステージを描画する関数
     draw() {
 
         /* ステージ上にエサがあるかどうかのフラグ */
         let baitFlag = 0;
+        let playerFlag = 0;
 
         /* 枠線の色と太さ */
         stroke(0, 0, 0);
@@ -61,6 +64,7 @@ class Stage {
 
                     fill('YELLOW');
                     this.turn++;
+                    playerFlag = 1;
                 }
 
                 // 配列の中身がエネミーを表すchar文字の時、エネミーブロック
@@ -92,19 +96,17 @@ class Stage {
             this.isGameSet = 1;
             displayGameClear();
         }
+
+        if (playerFlag === 0) {
+            this.isGameSet = 1;
+            diaplayGameOver();
+        }
     }
 
     /* ゲームターンを出力する関数 */
     gameTurn() {
         console.log(this.turn);
-
-        // ゲームオーバーの条件(同じターンが続いた時)
-        if(this.turn !== 0 && this.tmpTurn == this.turn) {
-            this.isGameSet = 1;
-            diaplayGameOver();
-        }
         this.tmpTurn = this.turn;
-
         return this.isGameSet;
     }
 }

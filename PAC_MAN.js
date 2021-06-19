@@ -13,12 +13,11 @@ class PAC_MAN {
             new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
     
         let stage = new Stage(startStage, stagePoints, stageBites, enemyList);
-
         while(!stage.gameTurn()) {
             await sleep(250);
     
             playBGM(p.isPowerPacMan());
-            displayScore(p.getScore().getScore());
+            displayScore(p.getScore());
     
             /* パックマンが通常時 */
             if (p.isPowerPacMan() === false) {

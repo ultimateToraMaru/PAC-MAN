@@ -10,7 +10,7 @@ class Player {
         this.command = '';
         this.setCommand();
 
-        this.life = 3;
+        // this.life = 3;
         this.score = score;
         this.hasPowerCokkie = false;
     }
@@ -22,6 +22,17 @@ class Player {
         
         this.stageBites = stageBites;
     }
+
+    retrySetPoint() {
+        this.p_i = 1;
+        this.p_j = 1;
+    }
+
+    // getLife() {
+    //     let nowLife = this.life;
+    //     this.life--;
+    //     return nowLife;
+    // }
 
     setCommand(command) { this.command = command; }
     
