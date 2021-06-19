@@ -1,5 +1,5 @@
-class PacMan {
-    constructor() {
+class Player {
+    constructor(score) {
         this.stage = [0];
         this.stageBites = [0];
 
@@ -11,6 +11,7 @@ class PacMan {
         this.setCommand();
 
         this.life = 3;
+        this.score = score;
         this.hasPowerCokkie = false;
     }
 
@@ -26,6 +27,7 @@ class PacMan {
     
     isPowerPacMan() { return this.hasPowerCokkie; }
     endOfPowerTime() { this.hasPowerCokkie = false; }
+    getScore() { return this.score; }
     
     // プレイヤー文字を動かすメソッド。
     move() {
@@ -76,12 +78,12 @@ class PacMan {
         if (this.stageBites[this.p_i][this.p_j] === BITE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             playPacSE();
-            addScore('bite');
+            this.score.addBiteScore();
 
         } else if (this.stageBites[this.p_i][this.p_j] === POWER_COKKIE) {
             this.stageBites[this.p_i][this.p_j] = NONE;
             playPowerSE();
-            addScore('cokkie');
+            this.score.addCookieScore();
             this.hasPowerCokkie = true;
         }
     }

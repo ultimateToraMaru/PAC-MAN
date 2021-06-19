@@ -1,4 +1,4 @@
-static class Score {
+class Score {
     constructor() {
         this.score = 0;
     }

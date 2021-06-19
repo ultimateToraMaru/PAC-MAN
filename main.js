@@ -1,12 +1,12 @@
-let p = new PacMan();
 let score = new Score();
+let p = new Player(score);
 
 function setup() {
     start();
 }
 
 async function start() {
-    // イスタンス生成
+    // インスタンス生成
     let enemyList = new Array(
         new Enemy(i = 15, j = 10, c = 4, color = 'GREEN'),
         new Enemy(i = 15, j = 20, c = 5, color = 'RED'));
@@ -29,6 +29,7 @@ async function redrawAll(enemyList, stage) {
         await sleep(250);
 
         playBGM(p.isPowerPacMan());
+        displayScore(p.getScore().getScore());
 
         /* パックマンが通常時 */
         if (p.isPowerPacMan() === false) {
@@ -71,7 +72,7 @@ async function redrawAll(enemyList, stage) {
                     enemy.destroy();
                     playPowerSE()
                     enemyList.splice(i, 1);
-                    addScore('enemy');
+                    p.getScore().addBiteScore();
                 }
             });
 
@@ -88,17 +89,17 @@ async function redrawAll(enemyList, stage) {
 // 嫌な関数。privateな奴にpublic関数でアクセスしてる
 // privateの意味がないのでは。
 // いつか直さないと。
-function addScore(type) {
-    if (type === 'bite') {
-        score.addBiteScore();
-    } else if (type === 'cookie') {
-        score.addCookieScore();
-    } else if (type === 'enemy') {
-        score.addEnemyScore();
-    }
+// function addScore(type) {
+//     if (type === 'bite') {
+//         score.addBiteScore();
+//     } else if (type === 'cookie') {
+//         score.addCookieScore();
+//     } else if (type === 'enemy') {
+//         score.addEnemyScore();
+//     }
 
-    displayScore(score.getScore());
-}
+//     displayScore(p.getScore().getScore());
+// }
 
 let startPowerTurn = 0;
 let tmpPowerTurn = 0;
